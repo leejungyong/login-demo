@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  </head>
+  <body>
+    <div id="registerBox">
+      <input type="text" placeholder="用户名" name="username" /><br /><br />
+      <input type="password" placeholder="密码" name="password" /><br /><br />
+      <button id="register">注册</button> <button id="login">登录</button>
+
+      <p class="tip"></p>
+    </div>
+  </body>
+</html>
+
+<script>
+  $(function() {
+    var $registerBox = $('#registerBox')
+
+    $('#register').on('click', function() {
+      $.ajax({
+        type: 'post',
+        url: '/register',
+        data: {
+          username: $registerBox.find('[name="username"]').val(),
+          password: $registerBox.find('[name="password"]').val()
+        },
+        dataType: 'json',
+        success: function(result) {
+          $registerBox.find('.tip').html(result.message)
+          //   console.log('注册成功')
+        }
+      })
+    })
+
+    $('#login').on('click', function() {
+      $.ajax({
+        type: 'post',
+        url: '/login',
+        data: {
+          username: $registerBox.find('[name="username"]').val(),
+          password: $registerBox.find('[name="password"]').val()
+        },
+        dataType: 'json',
+        success: function(result) {
+          $registerBox.find('.tip').html(result.message)
+        }
+      })
+    })
+  })
+</script>
